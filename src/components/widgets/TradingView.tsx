@@ -167,7 +167,9 @@ export function TradingViewSymbolChart({
         lineColor: "#f59e0b",
         topColor: "rgba(245,158,11,0.25)",
         bottomColor: "rgba(245,158,11,0)",
-        isTransparent: true,
+        // isTransparent:true forces TradingView to fall back to a LIGHT surface;
+        // keep it false + colorTheme:"dark" so the chart renders on brand.
+        isTransparent: false,
         gridLineColor: "rgba(255,255,255,0.06)",
         dateRanges: ["1d|1", "1m|30", "3m|60", "12m|1D", "60m|1W", "all|1M"],
       }}
@@ -195,7 +197,7 @@ export function TradingViewSingleQuote({
       config={{
         symbol,
         width: "100%",
-        isTransparent: true,
+        isTransparent: false,
         colorTheme: "dark",
         locale: "en",
       }}
