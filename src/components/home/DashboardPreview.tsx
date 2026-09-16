@@ -4,6 +4,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { AreaChart, BarChart } from "@/components/charts/Charts";
 import { IconArrowRight, IconChart } from "@/components/ui/icons";
+import { TradingViewTickerTape } from "@/components/widgets/TradingView";
 import { getLiveSnapshot } from "@/lib/mt5";
 import { formatCurrency, formatPct } from "@/lib/utils";
 
@@ -23,7 +24,14 @@ export function DashboardPreview() {
         lead="Every metric, every trade, every dollar — visualized in one dashboard."
       />
 
-      <Reveal className="mt-14">
+      {/* Live market ticker tape (TradingView, free embed). */}
+      <Reveal className="mt-10">
+        <div className="glass overflow-hidden px-2">
+          <TradingViewTickerTape />
+        </div>
+      </Reveal>
+
+      <Reveal className="mt-6">
         <div className="glass overflow-hidden p-4 shadow-card md:p-6">
           {/* Header row */}
           <div className="flex flex-col gap-3 border-b border-white/10 pb-4 sm:flex-row sm:items-center sm:justify-between">

@@ -3,6 +3,7 @@ import { PageHeader } from "@/components/site/PageHeader";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { BacktestExplorer } from "@/components/backtest/BacktestExplorer";
+import { TradingViewTickerTape } from "@/components/widgets/TradingView";
 import { IconChart, IconShield, IconTarget } from "@/components/ui/icons";
 
 export const metadata: Metadata = {
@@ -40,6 +41,12 @@ export default function BacktestingPage() {
       />
 
       <Section className="!pt-12">
+        {/* Live market ticker tape (TradingView, free embed). */}
+        <Reveal className="mb-6">
+          <div className="glass overflow-hidden px-2">
+            <TradingViewTickerTape />
+          </div>
+        </Reveal>
         <Reveal>
           <BacktestExplorer />
         </Reveal>

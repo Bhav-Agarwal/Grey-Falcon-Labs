@@ -3,6 +3,7 @@ import { PageHeader } from "@/components/site/PageHeader";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
 import { LiveDashboard } from "@/components/dashboard/LiveDashboard";
+import { TradingViewTickerTape, TradingViewSymbolChart } from "@/components/widgets/TradingView";
 import { getLiveSnapshot } from "@/lib/mt5";
 
 export const metadata: Metadata = {
@@ -27,6 +28,13 @@ export default function LivePage() {
       />
 
       <Section className="!pt-10">
+        {/* Live market ticker tape (TradingView, free embed). */}
+        <Reveal className="mb-6">
+          <div className="glass overflow-hidden px-2">
+            <TradingViewTickerTape />
+          </div>
+        </Reveal>
+
         {/* Mock-data banner — clearly flags the swap point for a real feed. */}
         <Reveal className="mb-6">
           <div className="flex items-start gap-3 rounded-2xl border border-steel-500/25 bg-steel-500/[0.06] p-4 text-sm text-neutral-300">
@@ -42,6 +50,17 @@ export default function LivePage() {
               </code>{" "}
               and the dashboard updates automatically.
             </p>
+          </div>
+        </Reveal>
+
+        {/* Real, live XAU/USD chart alongside the (mock) account panel. */}
+        <Reveal className="mb-4">
+          <div className="glass p-4">
+            <p className="mb-3 flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-neutral-500">
+              <span className="h-1.5 w-1.5 rounded-full bg-gain animate-pulse-dot" />
+              XAU/USD · live market
+            </p>
+            <TradingViewSymbolChart symbol="OANDA:XAUUSD" label="Gold" height={360} />
           </div>
         </Reveal>
 
