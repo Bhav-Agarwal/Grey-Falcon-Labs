@@ -29,3 +29,5 @@ next-env.d.ts.bak
 
 # vercel
 .vercel
+
+.vercel

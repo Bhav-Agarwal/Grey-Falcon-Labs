@@ -3,7 +3,8 @@ import { PageHeader } from "@/components/site/PageHeader";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
 import { LiveDashboard } from "@/components/dashboard/LiveDashboard";
-import { TradingViewTickerTape, TradingViewSymbolChart } from "@/components/widgets/TradingView";
+import { TradingViewSymbolChart } from "@/components/widgets/TradingView";
+import { BrokerMarquee } from "@/components/marketing/BrokerMarquee";
 import { getLiveSnapshot } from "@/lib/mt5";
 
 export const metadata: Metadata = {
@@ -28,10 +29,13 @@ export default function LivePage() {
       />
 
       <Section className="!pt-10">
-        {/* Live market ticker tape (TradingView, free embed). */}
+        {/* Broker-agnostic compatibility strip. */}
         <Reveal className="mb-6">
-          <div className="glass overflow-hidden px-2">
-            <TradingViewTickerTape />
+          <div className="glass overflow-hidden px-2 py-1">
+            <p className="pt-3 text-center font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+              Broker-agnostic · works with
+            </p>
+            <BrokerMarquee />
           </div>
         </Reveal>
 

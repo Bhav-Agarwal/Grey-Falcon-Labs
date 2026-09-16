@@ -90,39 +90,7 @@ function TradingViewWidgetBase({
 const TradingViewWidget = memo(TradingViewWidgetBase);
 
 /* -------------------------------------------------------------------------- */
-/* Preset 1 — scrolling ticker tape (markets relevant to a gold EA)           */
-/* -------------------------------------------------------------------------- */
-
-const TAPE_SYMBOLS = [
-  { proName: "OANDA:XAUUSD", title: "Gold (XAU/USD)" },
-  { proName: "TVC:DXY", title: "US Dollar Index" },
-  { proName: "FX:EURUSD", title: "EUR/USD" },
-  { proName: "BITSTAMP:BTCUSD", title: "Bitcoin" },
-  { proName: "SP:SPX", title: "S&P 500" },
-  { proName: "TVC:USOIL", title: "Crude Oil" },
-];
-
-export function TradingViewTickerTape({ className }: { className?: string }) {
-  return (
-    <TradingViewWidget
-      scriptName="embed-widget-ticker-tape.js"
-      ariaLabel="Live market ticker tape"
-      minHeight={46}
-      className={className}
-      config={{
-        symbols: TAPE_SYMBOLS,
-        showSymbolLogo: true,
-        isTransparent: false,
-        displayMode: "regular",
-        colorTheme: "dark",
-        locale: "en",
-      }}
-    />
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/* Preset 2 — live symbol chart (defaults to spot gold)                        */
+/* Preset 1 — live symbol chart (defaults to spot gold)                        */
 /* -------------------------------------------------------------------------- */
 
 export function TradingViewSymbolChart({
@@ -178,7 +146,7 @@ export function TradingViewSymbolChart({
 }
 
 /* -------------------------------------------------------------------------- */
-/* Preset 3 — compact single quote                                            */
+/* Preset 2 — compact single quote                                            */
 /* -------------------------------------------------------------------------- */
 
 export function TradingViewSingleQuote({

@@ -4,7 +4,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { AreaChart, BarChart } from "@/components/charts/Charts";
 import { IconArrowRight, IconChart } from "@/components/ui/icons";
-import { TradingViewTickerTape } from "@/components/widgets/TradingView";
+import { BrokerMarquee } from "@/components/marketing/BrokerMarquee";
 import { getLiveSnapshot } from "@/lib/mt5";
 import { formatCurrency, formatPct } from "@/lib/utils";
 
@@ -24,10 +24,13 @@ export function DashboardPreview() {
         lead="Every metric, every trade, every dollar — visualized in one dashboard."
       />
 
-      {/* Live market ticker tape (TradingView, free embed). */}
+      {/* Broker-agnostic compatibility strip. */}
       <Reveal className="mt-10">
-        <div className="glass overflow-hidden px-2">
-          <TradingViewTickerTape />
+        <div className="glass overflow-hidden px-2 py-1">
+          <p className="pt-3 text-center font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-500">
+            Broker-agnostic · works with
+          </p>
+          <BrokerMarquee />
         </div>
       </Reveal>
 
