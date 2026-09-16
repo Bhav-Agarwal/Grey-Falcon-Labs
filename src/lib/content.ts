@@ -36,10 +36,10 @@ export const HERO = {
   titleBottom: "Engineered for Edge.",
   body: "Grey Falcon Labs runs disciplined, quant-driven strategies on MetaTrader 5. Emotion-free execution, hard risk controls, and results you can audit — built to scale funded accounts.",
   stats: [
-    { value: "24/5", label: "Auto execution" },
-    { value: "MT5", label: "Platform" },
-    { value: "5 min", label: "Setup" },
-    { value: "100%", label: "Emotion-free" },
+    { value: "4", label: "Strategies" },
+    { value: "3", label: "Risk profiles" },
+    { value: "600+", label: "Backtests run" },
+    { value: "XAUUSD", label: "Primary market" },
   ],
 };
 
@@ -276,4 +276,4 @@ export const FAQS: Faq[] = [
 ];
 
 /** Small trust chips shown under the hero CTA. */
-export const HERO_TRUST = ["Quick setup", "Card & crypto checkout", "Instant delivery"];
+export const HERO_TRUST = ["Quick setup", "135+ foreign currencies accepted", "Licensed within 24 hours"];
