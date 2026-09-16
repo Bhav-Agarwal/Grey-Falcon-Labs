@@ -34,47 +34,45 @@ function TradingViewWidgetBase({
   minHeight = 46,
   ariaLabel,
 }: TvBaseProps) {
-  // `mountRef` is an isolated node that React always keeps empty — TradingView
-  // owns everything inside it, so we can safely wipe it without React ever
-  // trying to reconcile nodes the third-party script added or removed.
-  const mountRef = useRef<HTMLDivElement>(null);
+  // `containerRef` carries the exact class TradingView's embed script looks for
+  // and React keeps it EMPTY — the script + widget host are the only children,
+  // all added imperatively, so wiping it on cleanup never touches a React node.
+  const containerRef = useRef<HTMLDivElement>(null);
   // Serialize once so the effect depends on config *value*, not object identity
   // (preset components create a fresh config object on every render).
   const configJson = JSON.stringify(config);
 
   useEffect(() => {
-    const mount = mountRef.current;
-    if (!mount) return;
+    const container = containerRef.current;
+    if (!container) return;
     // Guard against a second injection (React StrictMode mounts effects twice).
-    if (mount.querySelector("script")) return;
+    if (container.querySelector("script")) return;
 
+    // Canonical structure: `.tradingview-widget-container__widget` + <script>
+    // as DIRECT children of `.tradingview-widget-container`.
     const widgetHost = document.createElement("div");
     widgetHost.className = "tradingview-widget-container__widget";
-    mount.appendChild(widgetHost);
+    container.appendChild(widgetHost);
 
     const script = document.createElement("script");
     script.src = `https://s3.tradingview.com/external-embedding/${scriptName}`;
     script.async = true;
     script.type = "text/javascript";
     script.innerHTML = configJson;
-    mount.appendChild(script);
+    container.appendChild(script);
 
-    return () => {
-      // Safe: React never renders children into this node.
-      mount.innerHTML = "";
-    };
-    // Re-inject only if the widget type or its config actually changes.
+    // No manual cleanup: when this component truly unmounts, React removes the
+    // container node (and the TradingView iframe inside it) with it. Wiping the
+    // container here instead would race the still-loading embed script and throw
+    // "querySelector of null" under React StrictMode's dev double-mount. The
+    // `querySelector("script")` guard above already prevents a double injection.
   }, [scriptName, configJson]);
 
   return (
-    <div
-      className={cn("tradingview-widget-container", className)}
-      style={{ minHeight }}
-      role="region"
-      aria-label={ariaLabel}
-    >
+    <div className={cn(className)} style={{ minHeight }} role="region" aria-label={ariaLabel}>
       {/* TradingView-owned node — React keeps this empty. */}
-      <div ref={mountRef} />
+      <div className="tradingview-widget-container" ref={containerRef} />
+      {/* Attribution is a React sibling OUTSIDE the TV container (cleanup-safe). */}
       <div className="tradingview-widget-copyright">
         <a
           href="https://www.tradingview.com/"
@@ -114,8 +112,8 @@ export function TradingViewTickerTape({ className }: { className?: string }) {
       config={{
         symbols: TAPE_SYMBOLS,
         showSymbolLogo: true,
-        isTransparent: true,
-        displayMode: "adaptive",
+        isTransparent: false,
+        displayMode: "regular",
         colorTheme: "dark",
         locale: "en",
       }}
